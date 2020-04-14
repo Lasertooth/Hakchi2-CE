@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using TGDBHashTool.Models.Data;
+using TGDBHashTool.Models.SimpleHashes;
 
 namespace TGDBHashTool
 {
@@ -47,6 +49,10 @@ namespace TGDBHashTool
             }
             else
             {
+                //Application.EnableVisualStyles();
+                //Application.SetCompatibleTextRenderingDefault(false);
+                //Application.Run(new MainForm());
+
                 using (var file = File.Create(XmlFilename))
                 {
                     Collection.Groups = Collection.Groups.OrderBy(e => e.Name).ToList();
@@ -60,6 +66,21 @@ namespace TGDBHashTool
                     }
 
                     Xml.Serialize<DataCollection>(file, Collection);
+                }
+
+                var simple = new SimpleHashes();
+                foreach (var entry in Cs.GetHashDictionary(Collection).OrderBy(e => e.Key).Where(e => e.Value.Count > 0))
+                {
+                    simple.Hashes.Add(new SimpleHash()
+                    {
+                        Crc32 = entry.Key,
+                        TgdbId = entry.Value
+                    });
+                }
+
+                using (var file = File.Create("simple.xml"))
+                {
+                    Xml.Serialize<SimpleHashes>(file, simple);
                 }
             }
         }

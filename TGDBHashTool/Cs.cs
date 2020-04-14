@@ -7,10 +7,9 @@ namespace TGDBHashTool
 {
     public class Cs
     {
-        public static string Generate(string namespaceName, string className, string variableName, DataCollection data)
+        public static Dictionary<string, List<int>> GetHashDictionary(DataCollection data)
         {
             var output = new Dictionary<string, List<int>>();
-            var outputLines = new List<string>();
 
             foreach (var group in data.Groups)
             {
@@ -38,6 +37,13 @@ namespace TGDBHashTool
                     }
                 }
             }
+
+            return output;
+        }
+        public static string Generate(string namespaceName, string className, string variableName, DataCollection data)
+        {
+            var output = GetHashDictionary(data);
+            var outputLines = new List<string>();
 
             var entries = new List<string>();
             var keys = output.Keys.ToList();

@@ -60,6 +60,8 @@
     <Compile Include="Models\Dat\DatGame.cs" />
     <Compile Include="Models\Dat\DatHeader.cs" />
     <Compile Include="Models\Dat\DatRom.cs" />
+    <Compile Include="Models\SimpleHashes\SimpleHash.cs" />
+    <Compile Include="Models\SimpleHashes\SimpleHashes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml.cs" />
@@ -90,5 +92,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
