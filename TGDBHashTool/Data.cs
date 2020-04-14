@@ -5,7 +5,7 @@ using TGDBHashTool.Models.Data;
 
 namespace TGDBHashTool
 {
-    public class Cs
+    public class Data
     {
         public static Dictionary<string, List<int>> GetHashDictionary(DataCollection data)
         {
@@ -40,9 +40,10 @@ namespace TGDBHashTool
 
             return output;
         }
-        public static string Generate(string namespaceName, string className, string variableName, DataCollection data)
+
+        public static string GenerateCsFile(string namespaceName, string className, string variableName, DataCollection data)
         {
-            var output = GetHashDictionary(data);
+            var output = Data.GetHashDictionary(data);
             var outputLines = new List<string>();
 
             var entries = new List<string>();

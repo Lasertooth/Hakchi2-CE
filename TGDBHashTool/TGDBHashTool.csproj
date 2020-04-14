@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cs.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,11 +62,20 @@
     <Compile Include="Models\Dat\DatRom.cs" />
     <Compile Include="Models\SimpleHashes\SimpleHash.cs" />
     <Compile Include="Models\SimpleHashes\SimpleHashes.cs" />
+    <Compile Include="NumberEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NumberEntry.Designer.cs">
+      <DependentUpon>NumberEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumberEntry.resx">
+      <DependentUpon>NumberEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

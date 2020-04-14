@@ -20,8 +20,9 @@ namespace TGDBHashTool
         {
             var xmlIndex = Array.IndexOf(args, "--xml");
             var csIndex = Array.IndexOf(args, "--cs");
+            var simpleXmlIndex = Array.IndexOf(args, "--simple-xml");
             var csOptionsIndex = Array.IndexOf(args, "--cs-opts");
-
+            bool showUi = true;
             
 
             if (xmlIndex != -1)
@@ -44,14 +45,37 @@ namespace TGDBHashTool
             if (csIndex != -1 && csOptionsIndex != -1)
             {
                 var csOptions = args[csOptionsIndex + 1].Split(',');
-                var cs = Cs.Generate(csOptions[0], csOptions[1], csOptions[2], Collection);
+                var cs = Data.GenerateCsFile(csOptions[0], csOptions[1], csOptions[2], Collection);
                 File.WriteAllText(args[csIndex + 1], cs);
+
+                showUi = false;
             }
-            else
+
+            if (simpleXmlIndex != -1)
             {
-                //Application.EnableVisualStyles();
-                //Application.SetCompatibleTextRenderingDefault(false);
-                //Application.Run(new MainForm());
+                var simple = new SimpleHashes();
+                foreach (var entry in Data.GetHashDictionary(Collection).OrderBy(e => e.Key).Where(e => e.Value.Count > 0))
+                {
+                    simple.Hashes.Add(new SimpleHash()
+                    {
+                        Crc32 = entry.Key,
+                        TgdbId = entry.Value
+                    });
+                }
+
+                using (var file = File.Create(args[simpleXmlIndex + 1]))
+                {
+                    Xml.Serialize<SimpleHashes>(file, simple);
+                }
+
+                showUi = false;
+            }
+            
+            if (showUi)
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
 
                 using (var file = File.Create(XmlFilename))
                 {
@@ -66,21 +90,6 @@ namespace TGDBHashTool
                     }
 
                     Xml.Serialize<DataCollection>(file, Collection);
-                }
-
-                var simple = new SimpleHashes();
-                foreach (var entry in Cs.GetHashDictionary(Collection).OrderBy(e => e.Key).Where(e => e.Value.Count > 0))
-                {
-                    simple.Hashes.Add(new SimpleHash()
-                    {
-                        Crc32 = entry.Key,
-                        TgdbId = entry.Value
-                    });
-                }
-
-                using (var file = File.Create("simple.xml"))
-                {
-                    Xml.Serialize<SimpleHashes>(file, simple);
                 }
             }
         }
