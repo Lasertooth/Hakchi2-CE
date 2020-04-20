@@ -1,7 +1,12 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using TGDBHashTool.Models;
+using TGDBHashTool.Models.Dat;
 using TGDBHashTool.Models.Data;
 using TGDBHashTool.Models.SimpleHashes;
 

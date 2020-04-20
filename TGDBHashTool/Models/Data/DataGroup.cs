@@ -4,7 +4,7 @@ using TGDBHashTool.Models.Dat;
 
 namespace TGDBHashTool.Models.Data
 {
-    [XmlRoot(ElementName = "group")]
+    [XmlRoot(ElementName = "datafile")]
     public class DataGroup
     {
         [XmlIgnore]
